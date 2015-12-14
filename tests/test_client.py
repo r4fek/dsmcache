@@ -87,3 +87,6 @@ class ClientTestCase(TestCase):
 
     def test_check_key_invalid(self):
         pass
+
+    def test_disconnect(self):
+        pass

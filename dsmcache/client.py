@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 
+import atexit
+import logging
 import re
-
 import six
 
 from .exceptions import ServerError, InvalidKeyError
@@ -18,6 +19,8 @@ METHOD_TO_TEMPLATE = {
 STORED_RE = re.compile(r'^STORED\r\n$')
 MAX_KEY_LENGTH = 250
 
+logger = logging.getLogger(__name__)
+
 
 class Client(object):
 
@@ -33,6 +36,9 @@ class Client(object):
 
         self._pool = ConnectionPool(Host(host), pool_size=pool_size,
                                     timeout=socket_timeout)
+
+    def __del__(self):
+        self.disconnect()
 
     def get(self, key):
         """
@@ -62,6 +68,7 @@ class Client(object):
         return self._send_cmd('stats items')
 
     def disconnect(self):
+        logger.info('Disconnecting connection pool')
         self._pool.close()
 
     def _send_cmd(self, cmd_name, **kwargs):
