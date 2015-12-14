@@ -102,8 +102,7 @@ class ConnectionPool(object):
             response = connection.read()
         except Empty:
             raise EmptyPoolError('Pool is empty')
-        except AttributeError as exc:
-            print exc
+        except AttributeError:
             raise ClosedPoolError('Pool is already closed')
         finally:
             # put connection back to the pool

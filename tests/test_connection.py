@@ -46,7 +46,7 @@ class HostTestCase(TestCase):
         with self.assertRaises(InvalidAddressError) as cm:
             host._parse('12:.0.0.1:11211')
 
-        self.assertEqual(cm.exception.message, 'Invalid address')
+        self.assertEqual(str(cm.exception), 'Invalid address')
 
     def test_parse_invalid_port(self):
         host = Host(self.host_str)
@@ -54,7 +54,7 @@ class HostTestCase(TestCase):
         with self.assertRaises(InvalidPortError) as cm:
             host._parse('127.0.0.1:xx')
 
-        self.assertEqual(cm.exception.message, 'Invalid port')
+        self.assertEqual(str(cm.exception), 'Invalid port')
 
 
 class ConnectionTestCase(TestCase):
