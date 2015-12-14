@@ -26,7 +26,7 @@ class GetSetTestCase(TestCase):
         self.assertEqual(self.client.get('key'), 'val2')
 
     def test_pool_works(self):
-        for i in range(self.pool_size*5):
+        for i in range(self.pool_size*2):
             self.assertTrue(self.client.set('key%s' % i, 'val'))
             self.assertEqual(self.client.get('key%s' % i), 'val')
 

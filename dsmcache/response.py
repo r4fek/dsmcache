@@ -1,5 +1,8 @@
 
 class Response(object):
+    """
+    Class for storing responses from Memcached server.
+    """
 
     def __init__(self):
         self._data = {}

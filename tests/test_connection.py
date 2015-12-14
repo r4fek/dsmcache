@@ -67,6 +67,7 @@ class ConnectionTestCase(TestCase):
 
     def tearDown(self):
         self.socket_patch.stop()
+        self.connection.close()
 
     def test_init(self):
         connection = Connection(self.host, socket_timeout=10, retry_timeout=5)

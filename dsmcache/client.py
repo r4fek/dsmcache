@@ -36,7 +36,7 @@ class Client(object):
 
     def get(self, key):
         """
-        Get data for given key from Memcached
+        Get data for given key from Memcached.
         :param key: key to fetch
         :type: str
         """
@@ -72,7 +72,7 @@ class Client(object):
     @staticmethod
     def _check_key(key):
         """
-        Check if key is valid and return it
+        Check if key is valid and return it.
         :param key: key to check
         :rtype: str
         """
@@ -93,7 +93,7 @@ class Client(object):
     @staticmethod
     def _parse_cmd(cmd_name, cmd_args):
         """
-        Prepare command to be send to Memcached
+        Prepare command to be send to Memcached.
         :param cmd_name: command name like 'set' or 'get'
         :type: str
         :param cmd_args: dict of variables to set in template
@@ -106,10 +106,13 @@ class Client(object):
     @staticmethod
     def _parse_response(cmd_name, response):
         """
-        Parse response and return result
-        :param cmd_name:
-        :param response:
-        :return:
+        Parse response and return result or raise Server error.
+        :param cmd_name: command name
+        :type: str
+        :param response: Response instance to parse
+        :type: Response
+        :return: response value
+        :raises: ServerError
         """
 
         if not response.is_valid():
