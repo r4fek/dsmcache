@@ -1,0 +1,23 @@
+language: python
+python: 2.7
+sudo: false
+env:
+  - TOX_ENV=py27
+  - TOX_ENV=py33
+  - TOX_ENV=py34
+  - TOX_ENV=py35
+
+addons:
+  apt:
+    packages:
+    - build-essential
+    - python-dev
+
+services:
+  - memcached
+
+install:
+  - pip install tox
+
+script:
+  - tox -e $TOX_ENV
