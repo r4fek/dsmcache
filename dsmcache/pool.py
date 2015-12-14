@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from Queue import Queue, Full, Empty
+from six.moves.queue import Queue, Full, Empty
 
 from .exceptions import EmptyPoolError, ClosedPoolError
 from .connection import Connection, DEFAULT_SOCKET_TIMEOUT
