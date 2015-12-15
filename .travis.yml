@@ -3,9 +3,7 @@ python: 2.7
 sudo: false
 env:
   - TOX_ENV=py27
-  - TOX_ENV=py33
-  - TOX_ENV=py34
-  - TOX_ENV=py35
+  - TOX_ENV=py31
 
 addons:
   apt:
