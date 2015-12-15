@@ -15,7 +15,7 @@ METHOD_TO_TEMPLATE = {
     'flush_all': 'flush_all\r\n'
 }
 
-STORED_RE = re.compile(r'^STORED\r\n$')
+STORED_RE = re.compile(b'^STORED\r\n$')
 MAX_KEY_LENGTH = 250
 
 logger = logging.getLogger(__name__)
@@ -72,7 +72,7 @@ class Client(object):
 
     def _send_cmd(self, cmd_name, **kwargs):
         cmd = self._parse_cmd(cmd_name, kwargs)
-        response = self._pool.request(cmd)
+        response = self._pool.request(cmd.encode('utf-8'))
         return self._parse_response(cmd_name, response)
 
     @staticmethod
@@ -126,6 +126,6 @@ class Client(object):
 
         if cmd_name == 'get':
             if response.data:
-                return response.data.values()[0]
+                return list(response.data.values())[0]
         elif cmd_name == 'set':
             return STORED_RE.match(response.content) and True

@@ -33,4 +33,4 @@ class Response(object):
         """
 
         # TODO: Would be good to have better error handling. Lack of time :(
-        return 'ERROR' not in self._content
+        return b'ERROR' not in self._content

@@ -98,6 +98,7 @@ class ConnectionTestCase(TestCase):
             socket.timeout()
         check_dead_mock.return_value = False
         self.assertEqual(self.connection._socket, None)
+
         with self.assertRaises(socket.timeout):
             self.connection.connect()
 

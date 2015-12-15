@@ -4,6 +4,8 @@ import re
 import socket
 import time
 
+import six
+
 from .response import Response
 from .exceptions import InvalidPortError, InvalidAddressError
 
@@ -117,7 +119,7 @@ class Connection(object):
                     response = self._buffer[:length]
                     self._buffer = self._buffer[length:]
             else:
-                index = self._buffer.find('\r\n')
+                index = self._buffer.find(b'\r\n')
                 if index != -1:
                     response = self._buffer[:index+2]
                     self._buffer = self._buffer[index+2:]
@@ -141,15 +143,20 @@ class Connection(object):
         line = self._read()
         response.write(line)
 
-        if line and 'VALUE' in line:
-            while line != 'END\r\n':
+        if line and b'VALUE' in line:
+            while line != b'END\r\n':
                 header = line.split()
-                if len(header) == 4 and header[0] == 'VALUE':
+                if len(header) == 4 and header[0] == b'VALUE':
                     key = header[1]
                     length = int(header[3])
                     line = self._read(length)
                     response.write(line)
-                    response[key] = line
+
+                    if six.PY3:
+                        response[key] = line.decode('utf-8')
+                    else:
+                        response[key] = line
+
                 line = self._read()
                 response.write(line)
         return response
