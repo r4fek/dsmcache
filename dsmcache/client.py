@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-import atexit
 import logging
 import re
 import six
@@ -11,9 +10,9 @@ from .pool import ConnectionPool
 
 
 METHOD_TO_TEMPLATE = {
-    'get': b'get {key}\r\n',
-    'set': b'set {key} {flags} {time} {size}\r\n{value}\r\n',
-    'flush_all': b'flush_all\r\n'
+    'get': 'get {key}\r\n',
+    'set': 'set {key} {flags} {time} {size}\r\n{value}\r\n',
+    'flush_all': 'flush_all\r\n'
 }
 
 STORED_RE = re.compile(r'^STORED\r\n$')
